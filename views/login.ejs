@@ -46,8 +46,8 @@
                         <!-- Button -->
 
                         <div class="col-sm-12 controls">
-                            <a id="btn-login" href="#" class="btn btn-success">Login  </a>
-                            <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
+                            <a id="btn-login" class="btn btn-success">Login  </a>
+                            <a id="btn-fblogin" class="btn btn-primary">Login with Facebook</a>
 
                         </div>
                     </div>
@@ -146,5 +146,41 @@
 
     </div>
 </div>
+
+<script src="/javascripts/jquery-3.1.1.min.js"></script>
+<script>
+    $("#btn-login").click(function(){
+        var usermail = $("#login-username").val();
+        var password = $("#login-password").val();
+
+        $.ajax({
+            type: 'post',
+            url: 'uservalidation',
+            async: false,
+            beforeSend: function(){
+                //Amination goes here
+
+            },
+            dataType: 'json',
+            data: {
+                UserName: usermail,
+                Pincode: password
+            },
+            complete: function(){
+
+            },
+            success: function(data, status){
+                if(status == "success"){
+                    location.href = 'index';
+                }
+            },
+            error: function(data, status, e){
+                if(status == 'error'){
+                    location.href = 'login';
+                }
+            }
+        })
+    })
+</script>
 </body>
 </html>
