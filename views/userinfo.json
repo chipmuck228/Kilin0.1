@@ -1,0 +1,32 @@
+{
+  "Users"   :  [
+    {
+      "DisplayName": "刘振",
+      "Username" : "liuz.nsn@hotmail.com",
+      "Password" : "liuz.nsn",
+      "Role"     : "用户",
+      "Area"     : ["茂名", "从化"]
+    },
+    {
+      "DisplayName": "任柏威",
+      "Username" : "david.ren@gzoceannet.com",
+      "Password" : "david.ren",
+      "Role"     : "用户",
+      "Area"     : ["茂名", "从化"]
+    },
+    {
+      "DisplayName": "李轶鹏",
+      "Username" : "whataride@gzoceannet.com",
+      "Password" : "whataride",
+      "Role"     : "用户",
+      "Area"     : ["茂名", "从化"]
+    },
+    {
+      "DisplayName": "惠延昭",
+      "Username" : "yanzhao.hui@gzoceannet.com",
+      "Password" : "yanzhao.hui",
+      "Role"     : "管理员",
+      "Area"     : ["茂名", "从化"]
+    }
+]
+}
