@@ -23,18 +23,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.all('*', users.requireAuthentication);
 
 app.use('/', users);
 app.use('/users', users);
 
-app.use(cookieParser());
-app.use(session({
-  secret: '12345',
-  name: 'kilinapp',
-  cookie: {maxAge: 80000},
-  resave: false,
-  saveUninitialized: true,
-}));
 
 
 app.use(function(err, req, res, next) {

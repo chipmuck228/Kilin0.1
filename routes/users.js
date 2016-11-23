@@ -7,9 +7,9 @@ router.get('/', function(req, res, next) {
   res.render('index', {title: "users"});
 });
 
-router.get('/login', function(req, res, next){
+/*router.get('/login', function(req, res, next){
   res.render('login');
-});
+});*/
 
 
 function hashPwd(userName, pwd){
@@ -25,7 +25,8 @@ var users = [
       "Password" : "123456",
       "Role"     : "用户",
       "Area"     : ["茂名", "从化"],
-      "hash"     : hashPwd("liuz.nsn@hotmail.com", "123456")
+      "hash"     : hashPwd("liuz.nsn@hotmail.com", "123456"),
+      "last"     : ''
     },
     {
       "DisplayName": "任柏威",
@@ -33,7 +34,8 @@ var users = [
       "Password" : "123456",
       "Role"     : "用户",
       "Area"     : ["茂名", "从化"],
-      "hash"     : hashPwd("david.ren@gzoceannet", "123456")
+      "hash"     : hashPwd("david.ren@gzoceannet", "123456"),
+      "last"     : ''
     },
     {
       "DisplayName": "李轶鹏",
@@ -41,7 +43,8 @@ var users = [
       "Password" : "123456",
       "Role"     : "用户",
       "Area"     : ["茂名", "从化"],
-      "hash"     : hashPwd("whataride@gmail.com", "123456")
+      "hash"     : hashPwd("whataride@gmail.com", "123456"),
+      "last"     : ''
     },
     {
       "DisplayName": "惠延昭",
@@ -49,7 +52,8 @@ var users = [
       "Password" : "888888",
       "Role"     : "管理员",
       "Area"     : ["茂名", "从化"],
-      "hash"     : hashPwd("yanzhao.hui@gzoceannet.com", "888888")
+      "hash"     : hashPwd("yanzhao.hui@gzoceannet.com", "888888"),
+      "last"     : ''
     }
   ];
 
@@ -68,11 +72,10 @@ function authenticate(userName, hash){
 
   return 2;
 }
-
 function getLastLoginTime(userName){
-  for(var i = 0; i < userdb.length; ++i){
-    var user = userdb[i];
-    if(userName === user.userName){
+  for(var i = 0; i < users.length; ++i){
+    var user = users[i];
+    if(userName === user.Username){
       return user.last;
     }
   }
@@ -80,9 +83,9 @@ function getLastLoginTime(userName){
 };
 
 function updateLastLoginTime(userName){
-  for(var i = 0; i < userdb.length; ++i){
-    var user = userdb[i];
-    if(userName === user.userName){
+  for(var i = 0; i < users.length; ++i){
+    var user = users[i];
+    if(userName === user.Username){
       user.last = Date().toString();
       return;
     }
@@ -91,9 +94,9 @@ function updateLastLoginTime(userName){
 
 function authenticate(userName, hash){
 
-  for(var i = 0; i < userdb.length; ++i){
-    var user = userdb[i];
-    if(userName === user.userName){
+  for(var i = 0; i < users.length; ++i){
+    var user = users[i];
+    if(userName === user.Username){
       if(hash === user.hash){
         return 0;
       }else{
@@ -101,7 +104,6 @@ function authenticate(userName, hash){
       }
     }
   }
-
   return 2;
 };
 
@@ -118,7 +120,7 @@ function isLogined(req){
   return false;
 };
 
-router.post('/uservalidation', function(req, res, next){
+router.post('/login', function(req, res, next){
   var userName = req.body.UserName;
   var passWord = req.body.Pincode;
 
@@ -131,17 +133,17 @@ router.post('/uservalidation', function(req, res, next){
       var lastTime = getLastLoginTime(userName);
       updateLastLoginTime(userName);
       console.log("login ok, last - " + lastTime);
-      res.cookie("account", {account: userame, hash: hash, last: lastTime}, {maxAge: 60000});
-      res.redirect('/index?'+Date.now());
+      res.cookie("account", {account: userName, hash: hash, last: lastTime}, {maxAge: 60000});
+      res.redirect('/index');
       console.log("after redirect");
       break;
     case 1: //password error
       console.log("password error");
-      res.render('login', {msg:"密码错误"});
+      res.render('/login');
       break;
     case 2: //user not found
       console.log("user not found");
-      res.render('login', {msg:"用户名不存在"});
+      res.render('/login');
       break;
   }
 });
@@ -150,7 +152,7 @@ router.get('/login', function(req, res, next){
   console.log("cookies:");
   console.log(req.cookies);
   if(isLogined(req)){
-    res.redirect('/profile?'+Date.now());
+    res.redirect('index');
   }else{
     res.render('login');
   }
@@ -181,5 +183,8 @@ router.requireAuthentication = function(req, res, next){
   res.redirect('/login?'+Date.now());
 };
 
+router.get('/index',function(req, res, next){
+  res.redirect('index');
+})
 
 module.exports = router;

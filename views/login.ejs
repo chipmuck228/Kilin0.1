@@ -155,7 +155,7 @@
 
         $.ajax({
             type: 'post',
-            url: 'uservalidation',
+            url: 'login',
             async: false,
             beforeSend: function(){
                 //Amination goes here
@@ -165,19 +165,6 @@
             data: {
                 UserName: usermail,
                 Pincode: password
-            },
-            complete: function(){
-
-            },
-            success: function(data, status){
-                if(status == "success"){
-                    location.href = 'index';
-                }
-            },
-            error: function(data, status, e){
-                if(status == 'error'){
-                    location.href = 'login';
-                }
             }
         })
     })
