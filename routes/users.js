@@ -34,7 +34,7 @@ var users = [
       "Password" : "123456",
       "Role"     : "用户",
       "Area"     : ["茂名", "从化"],
-      "hash"     : hashPwd("david.ren@gzoceannet", "123456"),
+      "hash"     : hashPwd("david.ren@gzoceannet.com", "123456"),
       "last"     : ''
     },
     {
@@ -133,34 +133,28 @@ router.post('/login', function(req, res, next){
       var lastTime = getLastLoginTime(userName);
       updateLastLoginTime(userName);
       console.log("login ok, last - " + lastTime);
-      res.cookie("account", {account: userName, hash: hash, last: lastTime}, {maxAge: 60000});
-      res.redirect('/index');
+      res.cookie("account", {account: userName, hash: hash, last: lastTime}, {maxAge: 300000});
+      //res.redirect('http://www.baidu.com');
+      res.send({"code": "0", "city": "茂名", "area": "茂南"});
+      res.end();
+
       console.log("after redirect");
       break;
     case 1: //password error
       console.log("password error");
-      res.render('/login');
+      res.render('login');
       break;
     case 2: //user not found
       console.log("user not found");
-      res.render('/login');
+      res.render('login');
       break;
   }
 });
 
-router.get('/login', function(req, res, next){
-  console.log("cookies:");
-  console.log(req.cookies);
-  if(isLogined(req)){
-    res.redirect('index');
-  }else{
-    res.render('login');
-  }
-});
 
 router.get('/logout', function(req, res, next){
   res.clearCookie("account");
-  res.redirect('/login?'+Date.now());
+  res.redirect('/login');
 });
 
 router.requireAuthentication = function(req, res, next){
@@ -180,11 +174,22 @@ router.requireAuthentication = function(req, res, next){
     }
   }
   console.log("not login, redirect to /login");
-  res.redirect('/login?'+Date.now());
+  res.redirect('/login');
 };
 
+
+router.get('/login', function(req, res, next){
+  console.log("cookies:");
+  console.log(req.cookies);
+  if(isLogined(req)){
+    res.redirect('index');
+  }else{
+    res.render('login');
+  }
+});
+
 router.get('/index',function(req, res, next){
-  res.redirect('index');
+  res.render('index');
 })
 
 module.exports = router;

@@ -2,28 +2,163 @@
 <html>
   <head>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <link rel="stylesheet" href="/stylesheets/map.css"/>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
   </head>
   <body>
 
-  <div id="container"></div>
+  <div id="mapcontainer"></div>
+  <div id="detailcontainer">
+    <div class="button-group">
+      <input type="button" class="button" value="自定义样式点聚合" id="add1"/>
+      <input type="button" class="button" value="默认样式点聚合" id="add0"/>
+    </div>
+  </div>
+
 
   <script src="http://webapi.amap.com/maps?v=1.3&key=b34c16903675b83b6a25dbd338d0608f&callback=init"></script>
   <script src="/javascripts/bootstrap.min.js"></script>
   <script src="/javascripts/jquery-3.1.1.min.js"></script>
+  <script src="/javascripts/sites-400.js"></script>
   <script>
+
+    var city_Maoming = [{
+      "CityArea"           : "茂南",
+      "lnBtsId"           : "817550",
+      "lcrid"             : "131",
+      "CellId"            : "817550131",
+      "IP"                : "100.64.249.190",
+      "BtsName_Cn"        : "茂南站前二路东(微小I)D-NLH",
+      "CellName-Cn"       : "茂南站前二路东(微小I)D-NLH-131",
+      "基站类型"          : "宏站",
+      "站型"              : "室外",
+      "Band"              : "D",
+      "覆盖场景"          : "城区",
+      "归属乡镇"          : "高山镇",
+      "经度"              : "110.91237",
+      "纬度"              : "21.64827",
+      "天线挂高"          : "5",
+      "Azimuth"           : "260",
+      "电子下倾角"        : "0",
+      "物理下倾角"         : "0",
+      "当前基站软件版本"  : "TLF15A",
+      "RRU类型"           : "FWHX_FRHX",
+      "BBU类型"           : "FWHX",
+      "BTSName"           : "MM-MaoNanZhanQianErLuDong(WeiXiaoI)D-NLH",
+      "CellName"          : "MM-MaoNanZhanQianErLuDong(WeiXiaoI)D-NLH-131"
+    },
+      {
+        "CityArea"           : "化州",
+        "lnBtsId"           : "817552",
+        "lcrid"             : "131",
+        "CellId"            : "817552131",
+        "IP"                : "100.98.176.125",
+        "BtsName_Cn"        : "化州下郭车站(微小I)D-NLH",
+        "CellName-Cn"       : "化州下郭车站(微小I)D-NLH-131",
+        "基站类型"          : "宏站",
+        "站型"              : "室外",
+        "Band"              : "D",
+        "覆盖场景"          : "城区",
+        "归属乡镇"          : "下郭街办",
+        "经度"              : "110.625417",
+        "纬度"              : "21.648784",
+        "天线挂高"          : "5",
+        "Azimuth"           : "240",
+        "电子下倾角"        : "0",
+        "物理下倾角"        : "0",
+        "当前基站软件版本"  : "TLF15A",
+        "RRU类型"           : "FWHX_FRHX",
+        "BBU类型"           : "FWHX",
+        "BTSName"           : "MM-HuaZhouXiaGuoCheZhan(WeiXiaoI)D-NLH",
+        "CellName"          : "MM-HuaZhouXiaGuoCheZhan(WeiXiaoI)D-NLH-131"
+      },
+      {
+        "CityArea"           : "茂南",
+        "lnBtsId"           : "817553",
+        "lcrid"             : "131",
+        "CellId"            : "817553131",
+        "IP"                : "100.64.254.214",
+        "BtsName_Cn"        : "茂南十中宿舍楼(微小M)D-NLH",
+        "CellName-Cn"       : "茂南十中宿舍楼(微小M)D-NLH-131",
+        "基站类型"          : "宏站",
+        "站型"              : "室外",
+        "Band"              : "D",
+        "覆盖场景"          : "城区",
+        "归属乡镇"          : "高山镇",
+        "经度"              : "110.917739",
+        "纬度"              : "21.688816",
+        "天线挂高"          : "19",
+        "Azimuth"           : "90",
+        "电子下倾角"        : "0",
+        "物理下倾角"        : "3",
+        "当前基站软件版本"  : "TL15A",
+        "RRU类型"           : "FZHS",
+        "BBU类型"           : "FSIH",
+        "BTSName"           : "MM-MaoNanShiZhongSuSheLou(WeiXiaoM)D-NLH",
+        "CellName"          : "MM-MaoNanShiZhongSuSheLou(WeiXiaoM)D-NLH-131"
+      }];
+
+    var city_Conghua = [];
     function init(){
-      var map = new AMap.Map('container', {
+      var cluster, markers = [];
+
+      var map = new AMap.Map('mapcontainer', {
         center: [110.917739, 21.688816],
         zoom: 14
       });
       map.plugin(["AMap.ToolBar"], function() {
         map.addControl(new AMap.ToolBar());
       });
+
+      var mapBounds = map.getBounds();
+      var sw = mapBounds.getSouthWest();
+      var ne = mapBounds.getNorthEast();
+      var lngSpan = Math.abs(sw.lng - ne.lng);
+      var latSpan = Math.abs(ne.lat - sw.lat);
+      for (var i in sites400) {
+        var markerPosition = [sites400[i].LON, sites400[i].LAT];
+        var marker = new AMap.Marker({
+          position: markerPosition,
+          icon: "http://amappc.cn-hangzhou.oss-pub.aliyun-inc.com/lbs/static/img/marker.png",
+          offset: {x: -8,y: -34}
+        });
+        markers.push(marker);
+      }
+      addCluster(0);
+
+      function addCluster(tag) {
+        if (cluster) {
+          cluster.setMap(null);
+        }
+        if (tag == 1) {
+          var sts = [{
+            url: "http://a.amap.com/lbs/static/img/1102-1.png",
+            size: new AMap.Size(32, 32),
+            offset: new AMap.Pixel(-16, -30)
+          }, {
+            url: "http://a.amap.com/lbs/static/img/2.png",
+            size: new AMap.Size(32, 32),
+            offset: new AMap.Pixel(-16, -30)
+          }, {
+            url: "http://lbs.amap.com/wp-content/uploads/2014/06/3.png",
+            size: new AMap.Size(48, 48),
+            offset: new AMap.Pixel(-24, -45),
+            textColor: '#CC0066'
+          }];
+          map.plugin(["AMap.MarkerClusterer"], function() {
+            cluster = new AMap.MarkerClusterer(map, markers, {
+              styles: sts
+            });
+          });
+        } else {
+          map.plugin(["AMap.MarkerClusterer"], function() {
+            cluster = new AMap.MarkerClusterer(map, markers);
+          });
+        }
+      }
     }
   </script>
 
-    <p>Welcome</p>
+
   </body>
 </html>

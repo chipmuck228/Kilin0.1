@@ -165,6 +165,10 @@
             data: {
                 UserName: usermail,
                 Pincode: password
+            },
+            success: function(data, status){
+                if(data.code == "0")
+                    window.location.href = "http://localhost:3000/index";
             }
         })
     })
