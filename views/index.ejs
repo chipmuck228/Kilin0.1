@@ -7,13 +7,42 @@
   </head>
   <body>
 
+  <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <a class="navbar-brand" href="#">
+                  <img alt="Brand" width="30px" height="30px" src="/images/png_icon_320.png">
+              </a>
+          </div>
+      </div>
+  </nav>
+
       <div id="mapcontainer"></div>
       <div id="detailcontainer">
         <div class="button-group">
           <input type="button" class="button" value="1" id="add1"/>
           <input type="button" class="button" value="2" id="add0"/>
+            <a href="#">Inbox <span class="badge">42</span></a>
+
+            <button class="btn btn-primary" type="button">
+                Messages <span class="badge">4</span>
+            </button>
         </div>
+          <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  Action <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+              </ul>
+          </div>
       </div>
+
+
 
 
 
@@ -103,13 +132,49 @@
     function init(){
       var cluster, markers = [];
 
-      var map = new AMap.Map('mapcontainer', {
+      var district, map = new AMap.Map('mapcontainer', {
         center: [110.917739, 21.688816],
-        zoom: 14
+          resizeEnable: true,
+        zoom: 10
       });
       map.plugin(["AMap.ToolBar"], function() {
         map.addControl(new AMap.ToolBar());
       });
+
+        addCity();
+        function addCity() {
+            //加载行政区划插件
+            AMap.service('AMap.DistrictSearch', function () {
+                var opts = {
+                    subdistrict: 1,   //返回下一级行政区
+                    extensions: 'all',  //返回行政区边界坐标组等具体信息
+                    level: 'province'  //查询行政级别为 市
+                };
+                //实例化DistrictSearch
+                district = new AMap.DistrictSearch(opts);
+                district.setLevel('city');
+                //行政区查询
+                district.search("茂名市", function (status, result) {
+                    var bounds = result.districtList[0].boundaries;
+                    var polygons = [];
+                    if (bounds) {
+                        for (var i = 0, l = bounds.length; i < l; i++) {
+                            //生成行政区划polygon
+                            var polygon = new AMap.Polygon({
+                                map: map,
+                                strokeWeight: 1,
+                                path: bounds[i],
+                                fillOpacity: 0.1,
+                                fillColor: '#f7f7f7',
+                                strokeColor: '#CC66CC'
+                            });
+                            polygons.push(polygon);
+                        }
+                        map.setFitView();//地图自适应
+                    }
+                });
+            });
+        }
 
       var mapBounds = map.getBounds();
       var sw = mapBounds.getSouthWest();

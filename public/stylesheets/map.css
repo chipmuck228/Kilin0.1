@@ -8,7 +8,7 @@ html, body {
 
 #mapcontainer {
     position: absolute;
-    top: 2px;
+    top: 54px;
     left: 2px;
     right: 2px;
     bottom: 2px;
@@ -22,7 +22,7 @@ html, body {
 
 #detailcontainer {
     position: absolute;
-    top: 2px;
+    top: 54px;
     left: 40%;
     right: 75%;
     bottom: 2px;
