@@ -1,138 +1,53 @@
-html, body {
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    background-color: #b4bab9;
+html,body{
+    height:100%;
 }
 
-#mapcontainer {
-    position: absolute;
-    top: 54px;
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
-    width: 40%;
-    height: 100%;
-    border: 1px solid #dedede;
-    -moz-border-radius: 15px;      /* Gecko browsers */
-    -webkit-border-radius: 15px;   /* Webkit browsers */
-    border-radius:15px;            /* W3C syntax */
+body{
+    padding-top:50px; /*padding for navbar*/
 }
 
-#detailcontainer {
-    position: absolute;
-    top: 54px;
-    left: 40%;
-    right: 75%;
-    bottom: 2px;
-    width: 60%;
-    height: 100%;
-    background-color: #fdfdff;
-    border: 1px solid #dedede;
-    padding-left: 20px;
-    -moz-border-radius: 15px;      /* Gecko browsers */
-    -webkit-border-radius: 15px;   /* Webkit browsers */
-    border-radius:15px;            /* W3C syntax */
+.navbar-custom .icon-bar {
+    background-color:#fff;
 }
 
-.button-group {
-    position: absolute;
-    bottom: 120px;
-    right: 120px;
-    font-size: 12px;
-    padding: 10px;
+.navbar-custom {
+    background-color: #168ccc;
+    color:#fff;
 }
 
-.button-group .button {
-    height: 28px;
-    line-height: 28px;
-    background-color: #0D9BF2;
-    color: #FFF;
-    border: 0;
-    outline: none;
-    padding-left: 5px;
-    padding-right: 5px;
-    border-radius: 3px;
-    margin-bottom: 4px;
-    cursor: pointer;
-}
-.button-group .inputtext {
-    height: 26px;
-    line-height: 26px;
-    border: 1px;
-    outline: none;
-    padding-left: 5px;
-    padding-right: 5px;
-    border-radius: 3px;
-    margin-bottom: 4px;
-    cursor: pointer;
-}
-/*
-.tip {
-   position: absolute;
-   bottom: 30px;
-   right: 10px;
-   background-color: #FFF;
-   text-align: center;
-   border: 1px solid #ccc;
-   line-height: 30px;
-   border-radius: 3px;
-   padding: 0 5px;
-   font-size: 12px;
-}
-*/
-#tip {
-    background-color: #fff;
-    padding-left: 10px;
-    padding-right: 10px;
-    position: absolute;
-    font-size: 12px;
-    right: 10px;
-    top: 20px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    line-height: 30px;
+.navbar-custom li>a:hover,.navbar-custom li>a:focus {
+    background-color:#49bfff;
 }
 
-/*
-#tip input[type='button'] {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	background-color: #0D9BF2;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-	color: #fff;
-	font-size: 12px;
-	border-radius: 3px;
-	outline: none;
-	border: 0;
-}
-*/
-.amap-info-content {
-    font-size: 12px;
+.navbar-custom a{
+    color:#fefefe;
 }
 
-#myPageTop {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    background: #fff none repeat scroll 0 0;
-    border: 1px solid #ccc;
-    margin: 10px auto;
-    padding:6px;
-    font-family: "Microsoft Yahei", "微软雅黑", "Pinghei";
-    font-size: 14px;
+.navbar-custom .form-control:focus {
+    border-color: #49bfff;
+    outline: 0;
+    -webkit-box-shadow: inset 0 0 0;
+    box-shadow: inset 0 0 0;
 }
-#myPageTop label {
-    margin: 0 20px 0 0;
-    color: #666666;
-    font-weight: normal;
+
+#main, #main>.row {
+    height:100%;
 }
-#myPageTop input {
-    width: 170px;
+
+#main>.row {
+    overflow-y:scroll;
 }
-#myPageTop .column2{
-    padding-left: 25px;
+
+#left {
+    height:100%;
+}
+
+#map-canvas {
+    width:33.3333%;
+    height:calc(100% - 0);
+    position:absolute;
+    right:16px;
+    top:50px;
+    bottom:0;
+    overflow:hidden;
 }

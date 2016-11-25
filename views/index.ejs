@@ -7,48 +7,114 @@
   </head>
   <body>
 
-  <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-          <div class="navbar-header">
-              <a class="navbar-brand" href="#">
-                  <img alt="Brand" width="30px" height="30px" src="/images/png_icon_320.png">
-              </a>
-          </div>
-      </div>
-  </nav>
-
-      <div id="mapcontainer"></div>
-      <div id="detailcontainer">
-        <div class="button-group">
-          <input type="button" class="button" value="1" id="add1"/>
-          <input type="button" class="button" value="2" id="add0"/>
-            <a href="#">Inbox <span class="badge">42</span></a>
-
-            <button class="btn btn-primary" type="button">
-                Messages <span class="badge">4</span>
-            </button>
-        </div>
-          <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                  Action <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
+  <div class="navbar navbar-custom navbar-fixed-top">
+    <div class="navbar-header"><a class="navbar-brand" href="#"><img alt="Brand" width="30px" height="30px" src="/images/png_icon_320.png"></a>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li>&nbsp;</li>
+      </ul>
+      <form class="navbar-form">
+        <div class="form-group" style="display:inline;">
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-chevron-down"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#">茂名市</a></li>
+                <li><a href="#">从化市</a></li>
               </ul>
+            </div>
+            <input type="text" class="form-control" placeholder="What are searching for?">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span> </span>
           </div>
-      </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
+  <div id="map-canvas"></div>
+
+  <div class="container-fluid" id="main">
+    <div class="row">
+      <div class="col-xs-8" id="left">
+
+        <h2>Bootstrap Google Maps Demo</h2>
+
+        <!-- item list -->
+        <div class="panel panel-default">
+          <div class="panel-heading"><a href="">Item heading</a></div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+          Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+          dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+          Aliquam in felis sit amet augue.</p>
+
+        <hr>
+
+        <div class="panel panel-default">
+          <div class="panel-heading"><a href="">Item heading</a></div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+          Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+          dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+          Aliquam in felis sit amet augue.</p>
+
+        <hr>
+
+        <div class="panel panel-default">
+          <div class="panel-heading"><a href="">Item heading</a></div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+          Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+          dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+          Aliquam in felis sit amet augue.</p>
+
+        <hr>
+
+        <div class="panel panel-default">
+          <div class="panel-heading"><a href="">Item heading</a></div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+          Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+          dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+          Aliquam in felis sit amet augue.</p>
+
+        <hr>
+        <!-- /item list -->
+
+        <p>
+          <a href="http://www.bootply.com/render/129229">Demo</a> | <a href="http://bootply.com/129229">Source Code</a>
+        </p>
+
+        <hr>
+
+        <p>
+          <a href="http://bootply.com" target="_ext" class="center-block btn btn-primary">More Bootstrap Snippets on Bootply</a>
+        </p>
+
+        <hr>
+
+      </div>
+      <div class="col-xs-4"><!--map-canvas will be postioned here--></div>
+
+    </div>
+  </div>
 
 
 
 
   <script src="http://webapi.amap.com/maps?v=1.3&key=b34c16903675b83b6a25dbd338d0608f&callback=init"></script>
-  <script src="/javascripts/bootstrap.min.js"></script>
-  <script src="/javascripts/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="/javascripts/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+
   <script src="/javascripts/sites-400.js"></script>
   <script>
 
@@ -132,11 +198,13 @@
     function init(){
       var cluster, markers = [];
 
-      var district, map = new AMap.Map('mapcontainer', {
+      var district, map = new AMap.Map('map-canvas', {
         center: [110.917739, 21.688816],
           resizeEnable: true,
         zoom: 10
       });
+
+      map.setMapStyle("light");
       map.plugin(["AMap.ToolBar"], function() {
         map.addControl(new AMap.ToolBar());
       });
