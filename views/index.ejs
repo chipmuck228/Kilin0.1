@@ -17,17 +17,28 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
+        <li class="active"><a href="#">KILIN基站管理系统</a></li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">地图样式<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#" onclick="setStyle(0)">正常模式</a></li>
+                <li class="divider"></li>
+                <li><a href="#" onclick="setStyle(1)">清新模式</a></li>
+                <li><a href="#" onclick="setStyle(2)">夜晚模式</a></li>
+                <li><a href="#" onclick="setStyle(3)">黑夜模式</a></li>
+                <li><a href="#" onclick="setStyle(4)">清凉模式</a></li>
+
+            </ul>
+        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">刘振<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#">设置</a></li>
+            <li><a href="#">当前权限：浏览</a></li>
+            <li><a href="#">用户基本信息</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="#">推出登录</a></li>
           </ul>
         </li>
       </ul>
@@ -41,21 +52,24 @@
                 <li><a href="#">从化市</a></li>
               </ul>
             </div>
-            <input type="text" class="form-control" placeholder="What are searching for?">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span> </span>
+            <input type="text" class="form-control" placeholder="What are searching for?" id="searchcontent">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search" onclick="search()"></span> </span>
           </div>
         </div>
       </form>
     </div>
   </div>
 
-  <div id="map-canvas"></div>
 
-  <div class="container-fluid" id="main">
+  <div id="map-canvas"></div>
+  <div class="container-fluid">
+      <div class="row" id="bottom">
+        <h1>KILIN System</h1>
+      </div>
 
 
     <div class="row">
-      <div class="col-xs-12" id="bottom">
+      <div class="col-xs-12">
         <h2>KILIN</h2>
         <!-- item list -->
         <div class="panel panel-default">
@@ -74,7 +88,45 @@
       </div>
     </div>
 
-      <div class="col-xs-12"><!--map-canvas will be postioned here--></div>
+
+  </div>
+
+  <div class="search-canvas">
+      <div class="container" style="margin-top: 2px; margin-left: 2px; padding-left: 2px;">
+          <div class="row col-sm-6">
+              <div class="col-sm-6">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">搜索站点</div>
+                      <div class="panel-body">
+
+                              <form role="form" class="form-horizontal">
+                                  <div class="form-group">
+                                      <label class="col-lg-2 control-label">站点名：</label>
+                                      <div class="col-lg-6"><input type="text" placeholder="站点名" class="form-control"></div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-lg-2 control-label">LAC：</label>
+                                      <div class="col-lg-6"><input type="text" placeholder="LAC" class="form-control"></div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-lg-2 control-label">BSC：</label>
+                                      <div class="col-lg-6"><input type="text" placeholder="BSC" class="form-control"></div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="col-lg-offset-2 col-lg-4">
+                                          <button type="submit" class="btn btn-sm btn-default">搜索</button>
+                                      </div>
+                                  </div>
+
+                              </form>
+
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
   </div>
 
 
@@ -166,16 +218,19 @@
       }];
 
     var city_Conghua = [];
+    var district, map;
+
     function init(){
       var cluster, markers = [];
 
-      var district, map = new AMap.Map('map-canvas', {
+      district, map = new AMap.Map('map-canvas', {
         center: [110.917739, 21.688816],
           resizeEnable: true,
-        zoom: 10
+        zoom: 5
       });
 
       map.setMapStyle("light");
+
       map.plugin(["AMap.ToolBar"], function() {
         map.addControl(new AMap.ToolBar());
       });
@@ -262,6 +317,45 @@
         }
       }
     }
+
+    function search(){
+      var search = $("#searchcontent").val();
+      var sitelon, sitelng;
+
+      for(var i in city_Maoming){
+        if(search == city_Maoming[i].BtsName_Cn)
+        {
+          sitelon = city_Maoming[i].纬度;
+          sitelng = city_Maoming[i].经度;
+        }
+      }
+      console.log("Lon: " + sitelon + ", Lng: " + sitelng);
+
+
+
+    };
+
+    function setStyle(e){
+        switch(e){
+            case 0:
+                map.setMapStyle("normal");
+                break;
+            case 1:
+                map.setMapStyle("light");
+                break;
+            case 2:
+                map.setMapStyle("dark");
+                break;
+            case 3:
+                map.setMapStyle("fresh");
+                break;
+            case 4:
+                map.setMapStyle("blue_night");
+                break;
+
+        }
+    };
+
   </script>
 
 

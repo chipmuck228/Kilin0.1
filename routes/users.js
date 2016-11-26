@@ -190,6 +190,11 @@ router.get('/login', function(req, res, next){
 
 router.get('/index',function(req, res, next){
   res.render('index');
+});
+
+router.post("/search", function(req, res, next){
+  var searchContent = req.body.searchSite;
+  console.log(searchContent);
 })
 
 module.exports = router;

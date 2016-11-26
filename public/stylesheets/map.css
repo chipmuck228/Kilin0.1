@@ -2,12 +2,8 @@ html,body{
     height:100%;
 }
 
-body{
-    padding-top:50px; /*padding for navbar*/
-}
-
 .navbar-custom .icon-bar {
-    background-color:#fff;
+    background-color: #ffff35;
 }
 
 .navbar-custom {
@@ -20,7 +16,7 @@ body{
 }
 
 .navbar-custom a{
-    color:#fefefe;
+    color: #75fef8;
 }
 
 .navbar-custom .form-control:focus {
@@ -50,7 +46,7 @@ body{
 #map-canvas {
     height:60%;
     width:calc(100% - 0);
-
+    top: 50px;
     padding-left:5px;
     padding-top:5px;
 
@@ -58,4 +54,22 @@ body{
     padding-bottom: 5px;
 
     overflow:hidden;
+}
+
+.search-canvas{
+    width: 18%;
+    height: 40%;
+    position: absolute;
+    right: 40px;
+    bottom: 300px;
+    background-color: #fcf8e3;
+    opacity: 0.8;
+    border-radius: 20px;
+    border: none;
+    transition: background-color 2s ease .5s;
+
+}
+
+.search-canvas:hover {
+    background-color: #1A8FBF;
 }
